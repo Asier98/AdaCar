@@ -4,7 +4,7 @@ package body AdaCar.Sensor_Proximidad is
 
 
    protected Sensor_Proximidad_PO
-     with Priority => Parametros.Techo_Sensor_Proximidad
+     with Priority => Parametros.Techo_Sensor_Proximidad_PO
    is
 
       function Leer_Entrada_Sensor return Unidades_Distancia;

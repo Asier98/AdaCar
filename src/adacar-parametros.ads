@@ -29,10 +29,10 @@ package AdaCar.Parametros is
    Prioridad_Seguimiento_Task: constant System.Priority:= System.Priority'Last;
    Prioridad_Alarmas_Task:     constant System.Priority:= System.Priority'Last;
    
-   Techo_Sensor_Proximidad: constant System.Priority:= System.Priority'Last;
-   Techo_Motores_PO:        constant System.Priority:= System.Priority'Last;
-   Techo_Alarmas_PO:        constant System.Priority:= System.Priority'Last;
-   Techo_Entrada_Salida_PO: constant System.Priority:= System.Priority'Last;
-   Techo_Organizador_PO:    constant System.Priority:= System.Priority'Last;
+   Techo_Sensor_Proximidad_PO: constant System.Priority:= System.Priority'Last;
+   Techo_Motores_PO:           constant System.Priority:= System.Priority'Last;
+   Techo_Alarmas_PO:           constant System.Priority:= System.Priority'Last;
+   Techo_Entrada_Salida_PO:    constant System.Priority:= System.Priority'Last;
+   Techo_Organizador_PO:       constant System.Priority:= System.Priority'Last;
    
 end AdaCar.Parametros;
