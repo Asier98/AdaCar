@@ -1,6 +1,10 @@
 with AdaCar.Parametros;
+with AdaCar.Motores;
 
 package body AdaCar.Organizador_Movimiento is
+
+
+   Minima_Distancia: constant Unidades_Distancia:= Parametros.Distancia_Minima;
 
    --------------------
    -- Organizador_PO --
@@ -33,7 +37,15 @@ package body AdaCar.Organizador_Movimiento is
 
       procedure Nueva_Distancia_Sensor(Valor: Unidades_Distancia) is
       begin
-         null;
+
+         if Valor > Minima_Distancia then
+            Motores.Actua_Direccion(Ambos_Motores,Hacia_Delante);
+         else
+            Motores.Actua_Direccion(Ambos_Motores,Hacia_Detras);
+         end if;
+
+         Motores.Actua_Step(Ambos_Motores,1);
+
       end Nueva_Distancia_Sensor;
 
    end Organizador_PO;
