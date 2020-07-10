@@ -11,7 +11,7 @@ package AdaCar is
    -----------
    -- Motor --
    -----------
-   type Tipo_Motor is (Derecho,Izquierdo);
+   type Tipo_Motor is (Motor_Derecho,Motor_Izquierdo,Ambos_Motores);
    type Tipo_Step is new Integer; -- Definir pasos en el rango de los pasos del motor   
    type Tipo_Direccion is (Hacia_Delante,Hacia_Detras);
    
