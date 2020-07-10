@@ -2,14 +2,22 @@ with System;
 
 package AdaCar.Parametros is
 
+  
+   Distancia_Minima: constant Unidades_Distancia:= 10.0;
+   
+   
+   --------------
+   -- Unidades --
+   --------------
    
    Factor_Distancia: constant Unidades_Distancia:= 0.0;
-   
    function Convertidor_Distancia(Valor: Unidades_AI) return Unidades_Distancia;
+   
    
    --------------
    -- Periodos --
    --------------
+   
    Periodo_Seguimiento_Task: constant Duration:= 0.1; 
    Periodo_Alarmas_Task    : constant Duration:= 0.1;
    
