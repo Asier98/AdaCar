@@ -1,3 +1,5 @@
+with STM32.GPIO;
+
 package AdaCar is
    
    --------------
@@ -27,9 +29,9 @@ package AdaCar is
    -------------
    -- Canales --
    -------------
-   type Canal_DI is range 1..2; -- Los tipos canales se tienen que modificar según la librería
-   type Canal_DO is range 1..2;
-   type Canal_AI is range 1..2;
+   subtype Canal_DI is STM32.GPIO.GPIO_Point; -- Los tipos canales se tienen que modificar según la librería
+   subtype Canal_DO is STM32.GPIO.GPIO_Point;
+   subtype Canal_AI is STM32.GPIO.GPIO_Point;
    
    
    
