@@ -14,6 +14,16 @@ package AdaCar.Parametros is
    function Convertidor_Distancia(Valor: Unidades_AI) return Unidades_Distancia;
    
    
+   
+   -------------
+   -- Canales --
+   -------------
+   
+   Canal_DO_Trig: Canal_DO:= Pin_D8;
+   Canal_DI_Echo: Canal_DI:= Pin_D6;
+     
+   
+   
    --------------
    -- Periodos --
    --------------
