@@ -15,4 +15,19 @@ package body AdaCar is
       return Valor_Distancia;
    end "*";
 
+
+   ---------
+   -- "*" --
+   ---------
+
+   function "*"
+     (Distancia: Unidades_Distancia; D: Duration)
+      return Unidades_Distancia
+   is
+      Valor_Distancia: Unidades_Distancia;
+   begin
+      Valor_Distancia:= Unidades_Distancia(D)*Distancia;
+      return Valor_Distancia;
+   end "*";
+
 end AdaCar;

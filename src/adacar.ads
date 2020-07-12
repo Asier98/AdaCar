@@ -1,4 +1,6 @@
 with STM32.GPIO;
+with Pins_STM32F446; use Pins_STM32F446;
+with Ada.Real_Time; use type Ada.Real_Time.Time; use Ada;
 
 package AdaCar is
    
@@ -29,15 +31,16 @@ package AdaCar is
    -------------
    -- Canales --
    -------------
-   subtype Canal_DI is STM32.GPIO.GPIO_Point; -- Los tipos canales se tienen que modificar según la librería
+   subtype Canal_DI is STM32.GPIO.GPIO_Point; 
    subtype Canal_DO is STM32.GPIO.GPIO_Point;
    subtype Canal_AI is STM32.GPIO.GPIO_Point;
    
-   
+
    
    -----------------
    -- Operaciones --
    -----------------
    function "*" (A: Unidades_AI; Distancia: Unidades_Distancia) return Unidades_Distancia;
+   function "*" (Distancia: Unidades_Distancia; D: Duration) return Unidades_Distancia;
    
 end AdaCar;
