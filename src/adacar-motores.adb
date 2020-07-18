@@ -1,6 +1,7 @@
 with AdaCar.Parametros;
 use AdaCar.Parametros;
 with AdaCar.Entrada_Salida;
+with AdaCar.Alarmas;
 
 package body AdaCar.Motores is
 
@@ -147,7 +148,90 @@ package body AdaCar.Motores is
                end case;
 
             when Ambos_Motores =>
-               null;
+               if Direccion_Motor_Derecha /= Direccion_Motor_Izquierda then
+                  Direccion_Motor_Derecha:= Direccion_Motor_Izquierda;
+                  Alarmas.Notificar_Alarma(Uso_Ambos_Motores);
+               end if;
+               declare
+                  Direccion_Ambos_Motores: Tipo_Direccion:= Direccion_Motor_Derecha;
+               begin
+
+                  case Direccion_Ambos_Motores is
+
+                     when Hacia_Delante =>
+
+                        case Ultimo_Canal_Encendido_Izquierda is
+                        when 0 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_B,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_A,Estado_Digital'(0));
+                        when 1 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_C,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_B,Estado_Digital'(0));
+                        when 2 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_D,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_C,Estado_Digital'(0));
+                        when 3 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_A,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_D,Estado_Digital'(0));
+                        end case;
+                        Ultimo_Canal_Encendido_Izquierda:= Ultimo_Canal_Encendido_Izquierda+1;
+
+
+                        case Ultimo_Canal_Encendido_Derecha is
+                        when 0 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_B,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_A,Estado_Digital'(0));
+                        when 1 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_C,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_B,Estado_Digital'(0));
+                        when 2 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_D,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_C,Estado_Digital'(0));
+                        when 3 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_A,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_D,Estado_Digital'(0));
+                        end case;
+                        Ultimo_Canal_Encendido_Derecha:= Ultimo_Canal_Encendido_Derecha+1;
+
+
+
+                     when Hacia_Detras =>
+
+                        case Ultimo_Canal_Encendido_Derecha is
+                        when 0 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_D,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_A,Estado_Digital'(0));
+                        when 1 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_A,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_B,Estado_Digital'(0));
+                        when 2 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_B,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_C,Estado_Digital'(0));
+                        when 3 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_C,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Derecho_D,Estado_Digital'(0));
+                        end case;
+                        Ultimo_Canal_Encendido_Derecha:= Ultimo_Canal_Encendido_Derecha-1;
+
+
+                        case Ultimo_Canal_Encendido_Izquierda is
+                        when 0 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_D,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_A,Estado_Digital'(0));
+                        when 1 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_A,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_B,Estado_Digital'(0));
+                        when 2 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_B,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_C,Estado_Digital'(0));
+                        when 3 =>
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_C,Estado_Digital'(1));
+                           Entrada_Salida.Salida_Digital(Canal_DO_Motor_Izquierdo_D,Estado_Digital'(0));
+                        end case;
+                        Ultimo_Canal_Encendido_Izquierda:= Ultimo_Canal_Encendido_Izquierda-1;
+
+                  end case;
+               end;
          end case;
 
       end Actua_Step;
