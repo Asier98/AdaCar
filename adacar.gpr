@@ -2,22 +2,77 @@ with "../Ada_Drivers_Library/boards/stm32f407_discovery/stm32f407_discovery_full
 with "IO_Library/control_io.gpr";
 
 project Adacar extends "../Ada_Drivers_Library/examples/shared/common/common.gpr" is
-   for Source_Dirs use ("src");
+
+   type Build_Type is
+      ("Debug", "Production");
+   type Build_Checks_Type is
+      ("Disabled", "Enabled");
+   type Loader_Type is
+      ("RAM", "ROM");
+   type Rts_Type is
+      ("ravenscar-sfp", "ravenscar-full");
+   type Lch_Type is
+      ("led", "lcd");
+   for Source_Dirs use ("src", "src_pruebas");
    for Object_Dir use "obj";
-   for Main use ("main.adb");
-
-   package IDE is
-      for VCS_Kind use "git";
-   end IDE;
-
-   for Runtime ("Ada") use STM32F407_Discovery_Full'Runtime("Ada");
-
+   for Runtime ("ada") use Stm32F407_Discovery_Full'Runtime ("Ada");
    for Create_Missing_Dirs use "True";
+   LCH : Lch_Type := external ("LCH");
+   RTS_Profile : Rts_Type := external ("RTS_Profile");
+   LOADER : Loader_Type := external ("LOADER");
+   ADL_BUILD_CHECKS : Build_Checks_Type := external ("ADL_BUILD_CHECKS");
+   ADL_BUILD : Build_Type := external ("ADL_BUILD");
+
+   package Ide is
+      for Vcs_Kind use "git";
+   end Ide;
 
    package Builder is
       for Global_Configuration_Pragmas use "../Ada_Drivers_Library/examples/shared/serial_ports/gnat.adc";
    end Builder;
 
-   package Compiler renames STM32F407_Discovery_Full.Compiler;
+   package Compiler renames Stm32F407_Discovery_Full.Compiler;
+
+   case LCH is
+
+      when "led" =>
+
+         case RTS_Profile is
+
+            when "ravenscar-sfp" =>
+
+               case LOADER is
+
+                  when "RAM" =>
+                     for Main use ("main.adb");
+
+                  when "ROM" =>
+
+                     case ADL_BUILD_CHECKS is
+
+                        when "Disabled" =>
+
+                           case ADL_BUILD is
+
+                              when "Debug" =>
+                                 for Main use ("prueba_organizador_movimiento", "prueba_alarmas", "prueba_motores", "prueba_seguimiento_sensor", "prueba_sensor_proximidad", "prueba_entrada_salida", "main.adb");
+
+                              when "Production" =>
+                                 for Main use ("main.adb");
+                           end case;
+
+                        when "Enabled" =>
+                           for Main use ("main.adb");
+                     end case;
+               end case;
+
+            when "ravenscar-full" =>
+               for Main use ("main.adb");
+         end case;
+
+      when "lcd" =>
+         for Main use ("main.adb");
+   end case;
 
 end Adacar;
+
