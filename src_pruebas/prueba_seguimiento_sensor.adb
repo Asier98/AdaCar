@@ -9,14 +9,14 @@
 -- motores responden en función de la distancia que mide el sensor.
 
 with AdaCar; use AdaCar;
-with Pins_STM32F446; use Pins_STM32F446;
-with AdaCar.Parametros;
-with Ada.Real_Time; use type Ada.Real_Time.Time; use Ada;
+with AdaCar.Entrada_Salida;
 
 with AdaCar.Seguimiento_Sensor;
 
+
 procedure Prueba_Seguimiento_Sensor is
    Pines_Inicializados: Boolean:= False;
+   pragma Unreferenced (Pines_Inicializados);
 begin
    Pines_Inicializados:= Entrada_Salida.Init_System;
    null;
